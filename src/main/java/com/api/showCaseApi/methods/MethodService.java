@@ -5,12 +5,12 @@ import java.io.InputStreamReader;
 
 import com.api.showCaseApi.services.APIService;
 
-public class FetchKeywords implements APIService {
-    public String fetchKeywords(String data){
+public class MethodService implements APIService {
 
+    public String fetchKeywords(String data){
         try{
             System.out.println("data " + data);
-            Process p = Runtime.getRuntime().exec("python KeyFetch.py " + data);
+            Process p = Runtime.getRuntime().exec("python KeyFetch.py");
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
             StringBuffer buf = new StringBuffer("");
             String line = null;
@@ -23,9 +23,10 @@ public class FetchKeywords implements APIService {
         } catch (Exception e) {
 
         }
-
-
-
         return "interesting@#!success";
+    }
+
+    public String saveToMongo(String input){
+        return "";
     }
 }
