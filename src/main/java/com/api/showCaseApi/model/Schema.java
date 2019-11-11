@@ -2,10 +2,16 @@ package com.api.showCaseApi.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+
 @Document(collection = "DB_showCaseAPI")
 public class Schema {
-    
+    @Id
+    public String id;
+    @Column(name = "Key")
     private String key;
+    @Column(name = "Count")
     private int count;
 
     public String getKey() {
@@ -24,7 +30,7 @@ public class Schema {
         this.key = key;
     }
 
-    private Schema(String key, int count){
+    public Schema(String key, int count){
         this.key = key;
         this.count = count;
     }

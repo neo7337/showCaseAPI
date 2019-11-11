@@ -7,5 +7,8 @@ public interface APIService{
     public String fetchKeywords(String data);
 
     @Autowired
-    public String saveToMongo(String data);
+    public String saveToMongo(String[] data);
+
+    @Autowired
+    public int getMongoData();
 }
