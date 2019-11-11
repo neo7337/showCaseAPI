@@ -2,11 +2,17 @@ package com.api.showCaseApi.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 
 @Document(collection = "DB_showCaseAPI")
-public class Schema {
+public class Schema implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     @Id
     public String id;
     @Column(name = "Key")

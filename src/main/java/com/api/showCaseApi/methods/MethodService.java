@@ -2,6 +2,7 @@ package com.api.showCaseApi.methods;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.List;
 
 import com.api.showCaseApi.model.Schema;
@@ -10,10 +11,10 @@ import com.api.showCaseApi.services.APIService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-//import com.api.showCaseApi.MongoConfig.Mongo;
-
 public abstract class MethodService implements APIService {
 
+    public HashMap<String, Integer> dataMap = new HashMap<String, Integer>();
+    
     @Autowired
     private SchemaRepository repository;
 
@@ -39,6 +40,20 @@ public abstract class MethodService implements APIService {
 
     public String saveToMongo(String[] input) {
         //update old key counts and insert new keys in the database
+        int count=0;
+        for(int i=0; i<input.length; i++){
+            if(dataMap.containsKey(input[i])){
+                count = dataMap.get(input[i]);
+                dataMap.replace(input[i], count, count++);
+            } else {
+                dataMap.put(input[i],0);
+            }
+        }
+        dataMap.forEach((k,v)->{
+            System.out.println("Key: " + k + " Value: " + v);
+            Schema sch = new Schema(k,v);
+            repository.save(sch);
+        });
         return "200@#!Success";
     }
 
@@ -48,7 +63,12 @@ public abstract class MethodService implements APIService {
         System.out.println("Schema found with findAll():");
         System.out.println("-------------------------------");
         List<Schema> alluser = repository.findAll();
-		alluser.forEach(item -> System.out.println(item));
+        if(alluser.size()!=0){
+            System.out.println("Data found in DB");
+            alluser.forEach(item -> {
+                dataMap.put(item.getKey(), item.getCount());
+            });
+        }
         return 200;
     }
 }

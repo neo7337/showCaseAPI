@@ -38,6 +38,11 @@ public class ApiController extends MethodService{
         } else {
             finalResult = "404";
         }
+        getResult = getMongoData();
+        if(getResult == 200){
+            //the data is fetched form mongo database into a HashMap
+            System.out.println("Data fetched successfully");
+        }
         return finalResult;
     }
 
