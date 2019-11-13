@@ -21,7 +21,7 @@ public abstract class MethodService implements APIService {
     public String fetchKeywords(String data) {
         try {
             System.out.println("data " + data);
-            Process p = Runtime.getRuntime().exec("python ../KeyFetch.py");
+            Process p = Runtime.getRuntime().exec("python scripts/KeyFetch.py");
             p.waitFor();
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
             StringBuffer buf = new StringBuffer("");
