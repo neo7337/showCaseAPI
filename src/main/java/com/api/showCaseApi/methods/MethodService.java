@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class MethodService implements APIService {
 
     public HashMap<String, Integer> dataMap = new HashMap<String, Integer>();
-    
+
     @Autowired
     private SchemaRepository repository;
 
@@ -35,26 +35,32 @@ public abstract class MethodService implements APIService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "interesting,inspiring@#!success";
+        return data.replaceAll("%20%", ",") + "@#!success";
     }
 
-    public String saveToMongo(String[] input) {
-        //update old key counts and insert new keys in the database
-        int count=0;
-        for(int i=0; i<input.length; i++){
-            if(dataMap.containsKey(input[i])){
-                count = dataMap.get(input[i]);
-                dataMap.replace(input[i], count, count++);
-            } else {
-                dataMap.put(input[i],0);
+    public String createMap(String[] input) {
+        // update old key counts and insert new keys in the dataMap
+        int count = 0, newCount=0;
+        for (int i = 0; i < input.length; i++) {
+            if(input[i]!=" "){
+                if (dataMap.containsKey(input[i])) {
+                    count = dataMap.get(input[i]);
+                    newCount = count+1;
+                    dataMap.replace(input[i], count, newCount);
+                } else {
+                    dataMap.put(input[i], 1);
+                }
             }
         }
-        dataMap.forEach((k,v)->{
-            System.out.println("Key: " + k + " Value: " + v);
-            Schema sch = new Schema(k,v);
-            repository.save(sch);
-        });
+        /*
+         * dataMap.forEach((k,v)->{ System.out.println("Key: " + k + " Value: " + v);
+         * Schema sch = new Schema(k,v); repository.save(sch); });
+         */
         return "200@#!Success";
+    }
+
+    public HashMap<String, Integer> fetchMap() {
+        return dataMap;
     }
 
     public int getMongoData() {
@@ -70,5 +76,9 @@ public abstract class MethodService implements APIService {
             });
         }
         return 200;
+    }
+
+    public String saveToMongo(String[] data) {
+        return null;
     }
 }
