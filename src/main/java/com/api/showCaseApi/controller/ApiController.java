@@ -29,6 +29,13 @@ public class ApiController extends MethodService{
         return "feedBack";
     }
     
+    @RequestMapping("/view")
+    public String viewResult() {
+        System.out.println("inside viewResult function");
+        return "view";
+    }
+    
+
     @RequestMapping(value = "/api/v1/saveData", method = RequestMethod.GET)
     @ResponseBody
     public String saveData(@RequestParam("feedback") String dataInput){
@@ -56,6 +63,7 @@ public class ApiController extends MethodService{
     @RequestMapping(value = "/api/v1/fetchData", produces = "application/json")
     @ResponseBody
     public HashMap<String, Integer> fetchJSONData(){
+        System.out.println("inside fetch");
         HashMap<String, Integer> response = new HashMap<String, Integer>();
         try{
             response = fetchMap();
