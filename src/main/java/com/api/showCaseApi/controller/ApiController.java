@@ -41,12 +41,13 @@ public class ApiController extends MethodService{
     public String saveData(@RequestParam("feedback") String dataInput){
         //fetches the keyword from the user input via a python script
         String input = dataInput.trim();
-        String fetchResult = fetchKeywords(input.replaceAll(" ", "%20%"));
+        String fetchResult = fetchKeywords(input);
         if(fetchResult.split("@#!")[1].equalsIgnoreCase("Success")){
             finalResult = "200";
-            System.out.println("Py Script executed successfully");
+            System.out.println("TextRank executed successfully");
             //result comes in the form of a saperator and store that data in an array for further parsing
             data = (fetchResult.split("@#!")[0]).split(",");
+            System.out.println("keywords Extracted : " + data.toString());
         } else {
             finalResult = "404";
         }

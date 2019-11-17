@@ -68,6 +68,14 @@
 			<version>1.0.2</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.hankcs/hanlp -->
+		<dependency>
+			<groupId>com.hankcs</groupId>
+			<artifactId>hanlp</artifactId>
+			<version>portable-1.7.5</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -1,10 +1,9 @@
 package com.api.showCaseApi.methods;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 
+import com.api.showCaseApi.keywordExtract.algorithm.TextRank;
 import com.api.showCaseApi.model.Schema;
 import com.api.showCaseApi.model.SchemaRepository;
 import com.api.showCaseApi.services.APIService;
@@ -19,23 +18,16 @@ public abstract class MethodService implements APIService {
     private SchemaRepository repository;
 
     public String fetchKeywords(String data) {
+        StringBuffer resultSet = new StringBuffer("");
         try {
-            System.out.println("data " + data);
-            Process p = Runtime.getRuntime().exec("python scripts/KeyFetch.py");
-            p.waitFor();
-            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            StringBuffer buf = new StringBuffer("");
-            String line = null;
-            System.out.println(in.readLine());
-            while ((line = in.readLine()) != null) {
-                System.out.println(line);
-                buf.append(line);
+            List<String> resultKeywords = TextRank.getkeyword(data);
+            for (String str : resultKeywords) {
+                resultSet.append(str+",");
             }
-            System.out.println(buf.length());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return data.replaceAll("%20%", ",") + "@#!success";
+        return resultSet.toString() + "@#!success";
     }
 
     public String createMap(String[] input) {
