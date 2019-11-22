@@ -7,3 +7,6 @@ TODO checklist
 4. Create a save data on exit (on exit close of the event)
 5. On exit we restart the application with the help of a .sh file using command (mvn clean install && mvn spring-boot:run)
 6. Important to implement multithreading as high traffic will impact the data.
+
+--Running Docker in localhost
+after docker run command the container can be accessed in 127.0.0.1:<port-exposed-in-dockerfile>/
