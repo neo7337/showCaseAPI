@@ -23,7 +23,7 @@ public class ApiController extends MethodService{
         shutdownApp.initiateShutdown(0);
     }
 
-    @RequestMapping("/feedBack")
+    @RequestMapping(value = {"${url.mapping}","${url.mapping.two}" })
     public String feedBack() {
         System.out.println("inside feedback function");
         return "feedBack";
