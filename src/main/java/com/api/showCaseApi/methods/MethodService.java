@@ -61,7 +61,7 @@ public abstract class MethodService implements APIService {
         System.out.println("Schema found with findAll():");
         System.out.println("-------------------------------");
         List<Schema> alluser = repository.findAll();
-        if(alluser.size()!=0){
+        if (alluser.size() != 0) {
             System.out.println("Data found in DB");
             alluser.forEach(item -> {
                 dataMap.put(item.getKey(), item.getCount());
