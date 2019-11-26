@@ -1,0 +1,129 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <!--Pulling Awesome Font -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body data-gr-c-s-loaded="true" class="">
+        <div class="container">
+            <div class="container">
+                <h2>Welcome to the Feedback View</h2>
+                <hr>
+            </div>
+            <div class="row">
+                <br><br>
+                <div class="panel-body">
+                    <ul class="list-group" id="result">
+                    </ul>
+                </div>
+                <div class='cl-sm-12'>
+                    <div id='res'></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <div class="col-md-12" style="text-align: center; padding:10px">
+                <ul class="social-network social-circle">
+                    <li><a href="https://github.com/neo7337" class="icoGithub" title="Github"><i
+                                class="fa fa-github"></i></a></li>
+                    <li><a href="https://stackoverflow.com/users/5894292/neo73" class="icoStackoverflow"
+                            title="Stackoverflow"><i class="fa fa-stack-overflow"></i></a>
+                    </li>
+                    <li><a href="https://twitter.com/adityak007mr" class="icoTwitter" title="Twitter"><i
+                                class="fa fa-twitter"></i></a></li>
+                    <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=adityak007mr@gmail.com&su=SUBJECT&body=BODY"
+                            class="icoEmail" title="Google +"><i class="fa fa-envelope"></i></a></li>
+                    <li><a href="https://www.linkedin.com/in/adi-kumar/" class="icoLinkedin" title="Linkedin"><i
+                                class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
+</body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        function viewData(){
+            var data = {};
+            $.ajax({
+                type: 'GET',
+                data: data,
+                contentType: 'application/json',
+                url: '/api/v1/fetchData',
+                dataType: 'json',
+                success: (result) => {
+                    console.log(result);
+                    $("#result").empty();
+                    var items2 = [];
+                    var returnMovies = JSON.stringify(result);
+                    var jsonData = JSON.parse(returnMovies);
+                    console.log('jsondata ' + JSON.stringify(jsonData));                   
+                    var lan = [],
+                        count = [],
+                        prev;
+                    for (var key in jsonData) {
+                        console.log(key);
+                        lan.push(key);
+                        console.log(jsonData[key]);
+                        count.push(jsonData[key]);
+                    }
+                    var countSum = 0;
+                    for (var h = 0; h < count.length; h++) {
+                        countSum = countSum + count[h];
+                    }
+                    for (var g = 0; g < lan.length; g++) {
+                        items2.push('<li class="list-group-item">' + lan[g] + '<span class="badge">' + Math.round((count[g] / countSum) * 100) + ' % </span></li>');
+                    }
+                    var perc = [];
+                    for (var t = 0; t < count.length; t++) {
+                        perc[t] = Math.round((count[t] / countSum) * 100);
+                    }
+                    var plotData=[];
+                    for (var t = 0; t < count.length; t++) {
+                        plotData[t] = (Math.round((count[t] / countSum) * 100))*2;
+                    }
+                    $('#result').append(items2.join(''));
+                    var data = [{
+                        x : lan,
+                        y : perc,
+                        type : 'bar'
+                    }]; 
+                    Plotly.newPlot('res', data);
+
+                    /* var trace1 = {
+                        x: lan,
+                        y: perc,
+                        mode: 'markers',
+                        marker: {
+                            size: plotData
+                        }
+                    };
+
+                    var data = [trace1];
+                    var layout = {
+                    title: 'Marker Size',
+                    showlegend: false,
+                    height: 600,
+                    width: 600
+                    };
+
+                    Plotly.newPlot('res', data, layout); */
+                }
+            });
+            setTimeout(viewData, 5000);
+        }
+        viewData();
+    });
+</script>
+</html>

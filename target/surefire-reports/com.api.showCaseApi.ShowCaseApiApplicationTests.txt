@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.api.showCaseApi.ShowCaseApiApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.732 s - in com.api.showCaseApi.ShowCaseApiApplicationTests

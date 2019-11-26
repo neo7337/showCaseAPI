@@ -1,0 +1,98 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <!--Pulling Awesome Font -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body data-gr-c-s-loaded="true" class="">
+        <div class="container">
+            <div class="container">
+                <h2>Welcome to the Feedback</h2>
+                <hr>
+            </div>
+            <div class='row'>
+                <div class='col-sm-12'>
+                    <form id="submitFeedback" name="validateOtp" method="post" style="padding:12px">
+                        <div class="card">
+                            <div class="card-header">
+                                Submit Feedback
+                            </div>
+                            <div class="card-body">
+                                <textarea class="form-control rounded-0" name="feedbackData" id="feedbackData" rows="3"></textarea>
+                                <br><br>
+                                <input type="submit" class="btn btn-primary btn-block" value="Submit" />
+                            </div>
+                        </div>
+                        <br />
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class='cl-sm-12'>
+                    <div id='res'></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <div class="col-md-12" style="text-align: center; padding:10px">
+                <ul class="social-network social-circle">
+                    <li><a href="https://github.com/neo7337" class="icoGithub" title="Github"><i
+                                class="fa fa-github"></i></a></li>
+                    <li><a href="https://stackoverflow.com/users/5894292/neo73" class="icoStackoverflow"
+                            title="Stackoverflow"><i class="fa fa-stack-overflow"></i></a>
+                    </li>
+                    <li><a href="https://twitter.com/adityak007mr" class="icoTwitter" title="Twitter"><i
+                                class="fa fa-twitter"></i></a></li>
+                    <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=adityak007mr@gmail.com&su=SUBJECT&body=BODY"
+                            class="icoEmail" title="Google +"><i class="fa fa-envelope"></i></a></li>
+                    <li><a href="https://www.linkedin.com/in/adi-kumar/" class="icoLinkedin" title="Linkedin"><i
+                                class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
+</body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#submitFeedback").submit(function (event) {
+            //stop submit the form, we will post it manually.
+            event.preventDefault();
+            var data = 'feedback=' + $("#feedbackData").val();
+            //alert(data);
+            if (undefined !== $("#feedbackData").val() && $("#feedbackData").val() !== null && $("#feedbackData").val() !== '') {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/v1/saveData",
+                    data: data,
+                    dataType: 'text',
+                    cache: false,
+                    timeout: 600000,
+                    success: function (response) {
+                        if (response === "200") {
+                            alert("Feedback Saved Successfully");
+                        } else {
+                            alert(response);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert(xhr.responseText);
+                    }
+                });
+            } else {
+                alert("Please enter the respective Feedback");
+            }
+        });
+    });
+</script>
+</html>
