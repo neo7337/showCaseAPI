@@ -8,5 +8,5 @@ TODO checklist
 5. On exit we restart the application with the help of a .sh file using command (mvn clean install && mvn spring-boot:run) - TBD
 6. Important to implement multithreading as high traffic will impact the data - TBD
 
---Running Docker in localhost
+--Running Docker in localhosts
 after docker run command the container can be accessed in 127.0.0.1:<port-exposed-in-dockerfile>/
