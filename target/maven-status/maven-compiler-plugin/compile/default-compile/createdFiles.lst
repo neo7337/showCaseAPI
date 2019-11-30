@@ -1,9 +1,0 @@
-com\api\showCaseApi\component\ShutdownApp.class
-com\api\showCaseApi\keywordExtract\algorithm\TextRank$1.class
-com\api\showCaseApi\model\Schema.class
-com\api\showCaseApi\model\SchemaRepository.class
-com\api\showCaseApi\keywordExtract\algorithm\TextRank.class
-com\api\showCaseApi\services\APIService.class
-com\api\showCaseApi\methods\MethodService.class
-com\api\showCaseApi\controller\ApiController.class
-com\api\showCaseApi\ShowCaseApiApplication.class
