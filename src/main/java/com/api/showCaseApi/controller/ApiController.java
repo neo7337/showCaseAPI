@@ -75,15 +75,14 @@ public class ApiController extends MethodService{
         return response;
     }
 
-    /* @RequestMapping(value = "/api/v1/fluxData", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<HashMap<String, Integer>> fetchFlux(){
-        Flux<HashMap<String, Integer>> response = new HashMap<String, Integer>();
-        try{
-            response = fetchMap();
-        } catch (Exception e){
-            result = "Error";
-            e.printStackTrace();
-        }
-        return Flux
-    } */
+    @RequestMapping(value ="/api/v1/reset")
+    public void reset() {
+        emptyMap();
+    }
+
+    @RequestMapping(value="/api/v1/saveData")
+    public String save() {
+        String status = saveData();
+        return status;
+    }
 }
