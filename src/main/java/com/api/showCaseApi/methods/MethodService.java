@@ -22,11 +22,11 @@ public abstract class MethodService implements APIService {
         try{
             dataMap.forEach((k,v)->{ 
                 System.out.println("Key: " + k + " Value: " + v);
-                Schema sch = new Schema(k,v); 
-                repository.save(sch); 
+                repository.save(new Schema(k,v)); 
             });
             result = "Data saved Successfully";
         } catch (Exception e){
+            e.printStackTrace();
             result = "Error saving data";
         }
         return result;
