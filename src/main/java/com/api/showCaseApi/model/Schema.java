@@ -1,12 +1,14 @@
 package com.api.showCaseApi.model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
+import javax.persistence.Entity;
 
+@Entity
 @Document(collection = "DB_showCaseAPI")
 public class Schema implements Serializable {
     /**
@@ -14,11 +16,13 @@ public class Schema implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     @Id
-    public String id;
-    @Column(name = "Key")
-    private String key;
-    @Column(name = "Count")
-    private int count;
+    String id;
+    
+    @Column(name = "key")
+    String key;
+
+    @Column(name = "count")
+    int count;
 
     public String getKey() {
         return key;

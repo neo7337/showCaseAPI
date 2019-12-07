@@ -19,4 +19,10 @@ public interface APIService{
 
     @Autowired
     public HashMap<String, Integer> fetchMap();
+
+    @Autowired
+    public void emptyMap();
+
+    @Autowired
+    public String saveData();
 }

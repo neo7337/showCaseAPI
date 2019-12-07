@@ -12,10 +12,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class MethodService implements APIService {
 
-    public HashMap<String, Integer> dataMap = new HashMap<String, Integer>();
+    private HashMap<String, Integer> dataMap = new HashMap<String, Integer>();
 
     @Autowired
     private SchemaRepository repository;
+
+    public String saveData() {
+        String result;
+        try{
+            dataMap.forEach((k,v)->{ 
+                System.out.println("Key: " + k + " Value: " + v);
+                repository.save(new Schema(k,v)); 
+            });
+            result = "Data saved Successfully";
+        } catch (Exception e){
+            e.printStackTrace();
+            result = "Error saving data";
+        }
+        return result;
+    }
+
+    public void emptyMap() {
+        dataMap.clear();
+    }
 
     public String fetchKeywords(String data) {
         StringBuffer resultSet = new StringBuffer("");

@@ -35,7 +35,6 @@ public class ApiController extends MethodService{
         return "view";
     }
     
-
     @RequestMapping(value = "/api/v1/saveData", method = RequestMethod.GET)
     @ResponseBody
     public String saveData(@RequestParam("feedback") String dataInput){
@@ -54,7 +53,7 @@ public class ApiController extends MethodService{
         String saveResult = createMap(data); //parameter will be a hashmap
         if(saveResult.split("@#!")[1].equalsIgnoreCase("Success")){
             finalResult = "200";
-            System.out.println("Data saved successfully");
+            System.out.println("DataMap saved successfully");
         } else {
             finalResult = "404";
         }
@@ -75,15 +74,24 @@ public class ApiController extends MethodService{
         return response;
     }
 
-    /* @RequestMapping(value = "/api/v1/fluxData", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<HashMap<String, Integer>> fetchFlux(){
-        Flux<HashMap<String, Integer>> response = new HashMap<String, Integer>();
+    @RequestMapping(value ="/api/v1/reset", produces = "application/json")
+    @ResponseBody
+    public HashMap<String, Integer> reset() {
+        emptyMap();
+        HashMap<String, Integer> response = new HashMap<String, Integer>();
         try{
             response = fetchMap();
         } catch (Exception e){
             result = "Error";
             e.printStackTrace();
         }
-        return Flux
-    } */
+        return response;
+    }
+
+    @RequestMapping(value="/api/v1/save")
+    public String save() {
+        String status = saveData();
+        System.out.println("Status : " + status);
+        return status;
+    }
 }
