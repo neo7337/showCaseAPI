@@ -8,8 +8,6 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <!--Pulling Awesome Font -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body data-gr-c-s-loaded="true" class="">
         <div class="container">
@@ -26,6 +24,30 @@
                 <div class='cl-sm-12'>
                     <div id='res'></div>
                 </div>
+            </div>
+            <div class="row" style="margin:auto">
+                <button type="button" class="btn btn-outline-primary" id="reset">Reset Data</button>&nbsp;
+                <button type="button" class="btn btn-outline-primary" id="save">Save Data</button> 
+            </div>
+        </div>
+
+        <div class="modal fade" role="dialog" id="alertModal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Alert</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" id="ok-modal">Ok</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-modal">Close</button>
+                </div>
+              </div>
             </div>
         </div>
 
@@ -47,10 +69,9 @@
             </div>
         </div>
 </body>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script type="text/javascript" src="scripts/main.js"></script>
 </html>

@@ -8,8 +8,10 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <!--Pulling Awesome Font -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body data-gr-c-s-loaded="true" class="">
         <div class="container">
@@ -34,10 +36,26 @@
                     </form>
                 </div>
             </div>
-            <div class="row">
-                <div class='cl-sm-12'>
-                    <div id='res'></div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" role="dialog" id="alertModal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Alert</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
+                <div class="modal-body">
+                  <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" id="ok-modal">Ok</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-modal">Close</button>
+                </div>
+              </div>
             </div>
         </div>
 
@@ -59,17 +77,12 @@
             </div>
         </div>
 </body>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#submitFeedback").submit(function (event) {
             //stop submit the form, we will post it manually.
             event.preventDefault();
             var data = 'feedback=' + $("#feedbackData").val();
-            //alert(data);
             if (undefined !== $("#feedbackData").val() && $("#feedbackData").val() !== null && $("#feedbackData").val() !== '') {
                 $.ajax({
                     type: "GET",
@@ -80,17 +93,36 @@
                     timeout: 600000,
                     success: function (response) {
                         if (response === "200") {
-                            alert("Feedback Saved Successfully");
+                            $("#alertModal").modal();
+                            $("#alertModal").find('.modal-body').text('Feedback Saved Successfully');
+                            $("#ok-modal").click(function(){
+                                $("#feedbackData").val('');
+                                $("#alertModal").modal('hide');
+                            });
                         } else {
-                            alert(response);
+                            $("#alertModal").modal();
+                            $("#alertModal").find('.modal-body').text(response);
+                            $("#ok-modal").click(function(){
+                                $("#feedbackData").val('');
+                                $("#alertModal").modal('hide');
+                            });
                         }
                     },
                     error: function (xhr, status, error) {
-                        alert(xhr.responseText);
+                        $("#alertModal").modal();
+                        $("#alertModal").find('.modal-body').text(xhr.responseText);
+                        $("#ok-modal").click(function(){
+                            $("#feedbackData").val('');
+                            $("#alertModal").modal('hide');
+                        });
                     }
                 });
             } else {
-                alert("Please enter the respective Feedback");
+                $("#alertModal").modal();
+                $("#alertModal").find('.modal-body').text('Please enter the respective Feedback');
+                $("#ok-modal").click(function(){
+                    $("#alertModal").modal('hide');
+                });
             }
         });
     });
