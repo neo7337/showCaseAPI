@@ -70,3 +70,27 @@ $(document).ready(function () {
     }
     viewData();
 });
+
+$("#reset").click(function(){
+    var data = {};
+    $.ajax({
+        type: 'GET',
+        data: data,
+        contentType: 'application/json',
+        url: '/api/v1/reset',
+        dataType: 'json',
+        success: (result) => {
+            var returnMovies = JSON.stringify(result);
+            var jsonData = JSON.parse(returnMovies);
+            console.log('jsondata ' + JSON.stringify(jsonData));
+        }
+    });
+});
+
+$("#save").click(function(){
+    $("#alertModal").modal();
+    $("#alertModal").find('.modal-body').text('Work in Progress!');
+    $("#ok-modal").click(function(){
+        $("#alertModal").modal('hide');
+    });
+});
