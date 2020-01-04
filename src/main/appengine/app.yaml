@@ -1,2 +1,5 @@
 threadsafe: true
-runtime: java8
+runtime: java
+runtime_config:
+  jdk: openjdk8
+env: flex
