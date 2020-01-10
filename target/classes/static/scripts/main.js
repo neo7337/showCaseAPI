@@ -1,6 +1,16 @@
 $(document).ready(function () {
+    $('#res').jQCloud([], {
+        classPattern: null,
+        colors: ["#800026", "#bd0026", "#f0134d", "#0f4c75", "#fd8d3c", "#af460f", "#fa163f", "#111d5e", "#232020"],
+        fontSize: {
+            from: 0.1,
+            to: 0.02
+        },
+        width: 1100,
+        height: 350
+      });
     function viewData(){
-        var data = {};
+        var data= {};
         $.ajax({
             type: 'GET',
             data: data,
@@ -8,19 +18,15 @@ $(document).ready(function () {
             url: '/api/v1/fetchData',
             dataType: 'json',
             success: (result) => {
-                console.log(result);
                 $("#result").empty();
                 var items2 = [];
                 var returnMovies = JSON.stringify(result);
-                var jsonData = JSON.parse(returnMovies);
-                console.log('jsondata ' + JSON.stringify(jsonData));                   
+                var jsonData = JSON.parse(returnMovies);                 
                 var lan = [],
                     count = [],
                     prev;
                 for (var key in jsonData) {
-                    console.log(key);
                     lan.push(key);
-                    console.log(jsonData[key]);
                     count.push(jsonData[key]);
                 }
                 var countSum = 0;
@@ -34,36 +40,14 @@ $(document).ready(function () {
                 for (var t = 0; t < count.length; t++) {
                     perc[t] = Math.round((count[t] / countSum) * 100);
                 }
-                var plotData=[];
-                for (var t = 0; t < count.length; t++) {
-                    plotData[t] = (Math.round((count[t] / countSum) * 100))*2;
+                var data = [];
+                for(var a=0; a<lan.length; a++){
+                    var obj = {};
+                    obj["text"]=lan[a];
+                    obj["weight"]=perc[a];
+                    data.push(obj);
                 }
-                $('#result').append(items2.join(''));
-                var data = [{
-                    x : lan,
-                    y : perc,
-                    type : 'bar'
-                }]; 
-                Plotly.newPlot('res', data);
-
-                /* var trace1 = {
-                    x: lan,
-                    y: perc,
-                    mode: 'markers',
-                    marker: {
-                        size: plotData
-                    }
-                };
-
-                var data = [trace1];
-                var layout = {
-                title: 'Marker Size',
-                showlegend: false,
-                height: 600,
-                width: 600
-                };
-
-                Plotly.newPlot('res', data, layout); */
+                $('#res').jQCloud('update', data);
             }
         });
         setTimeout(viewData, 5000);
