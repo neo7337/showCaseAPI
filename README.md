@@ -1,10 +1,5 @@
 # showCaseAPI
 
-x-special/nautilus-clipboard
-copy
-file:///home/aditya/Pictures/showcase.png
-
-
 --Running using maven
 mvn clean install && mvn spring-boot:run
 
