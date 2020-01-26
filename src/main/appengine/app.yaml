@@ -1,5 +1,12 @@
 threadsafe: true
 runtime: java
+servie: appv2
 runtime_config:
   jdk: openjdk8
 env: flex
+manual_scaling:
+  instances: 3
+resources:
+  cpu: 1
+  memory_gb: 2
+  disk_size_gb: 10
